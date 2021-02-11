@@ -1,0 +1,98 @@
+.highlight-overlay-succes {
+	background-color: green; /* color elements as green */
+	/* pointer-events: none; no pointer events, allows clicking through onto the element */
+	width: 100%;
+	opacity: 0.3;
+	height: 100%;
+	position: absolute;
+}
+
+.highlight-overlay-current {
+	background-color: lightcoral; /* color elements as green */
+	/* pointer-events: none; no pointer events, allows clicking through onto the element */
+	width: 100%;
+	opacity: 0.3;
+	height: 100%;
+	position: absolute;
+}
+
+.rombo {
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+
+.aquare {
+	border-radius: 7px;
+}
+
+.circle {
+	border-radius: 30px;
+}
+
+.BPMNelement {
+	width: 100%;
+	position: absolute;
+	height: 100%;
+	background-color: transparent;
+	border: 0;
+}
+
+.BPMNelement .btn {
+	outline: none;
+}
+
+.BPMNelement .text {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.BPMNelement .tooltip-top {
+	width: 8rem;
+	top: -25px;
+	left: 50%;
+	transform: translate(-50%, -100%);
+	padding: 5px 10px;
+	/*all of the tooltips tweaks the margins to fit you*/
+	margin-top: 10px;
+	background-color: white;
+	font-weight: normal;
+	font-size: 14px;
+	border-radius: 8px;
+	position: absolute;
+	z-index: 99999999;
+	box-sizing: border-box;
+	box-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
+	visibility: hidden;
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+
+.BPMNelement:hover .tooltip-top {
+	visibility: visible;
+	opacity: 1;
+}
+
+.BPMNelement .tooltip-top i {
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	margin-left: -12px;
+	width: 24px;
+	height: 12px;
+	overflow: hidden;
+}
+
+.BPMNelement .tooltip-top i::after {
+	content: '';
+	position: absolute;
+	width: 12px;
+	height: 12px;
+	left: 50%;
+	transform: translate(-50%, -50%) rotate(45deg);
+	background-color: #eeeeee;
+	box-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
+}
+/*ends here and you can tweak it to fit your needs*/
