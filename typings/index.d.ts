@@ -1,3 +1,4 @@
+import Modeler from 'bpmn-js/lib/Modeler';
 import * as React from 'react';
 
 type HoverText = {
@@ -5,14 +6,14 @@ type HoverText = {
 	description: string;
 };
 
-declare type OVERLAYS_TYPES = {
+declare type OVERLAYS_TYPES_DEFINED = {
 	SUCCES: 'succes';
 	CURRENT: 'current';
 };
 
 type ElementOverlays = {
 	name: string;
-	type: OVERLAYS_TYPES;
+	type: OVERLAYS_TYPES_DEFINED;
 	hoverText: HoverText | Array<HoverText>;
 	onClick: Function;
 };
@@ -28,6 +29,22 @@ export interface BpmnViewerProps {
 	width: string;
 }
 
+export interface BpmnModelerProps {
+	className: string;
+	containerClassName: string;
+	panelClassName: string;
+	modelerRef: (modelerInstance: Object) => {};
+	diagramXML: string;
+	handleWarning: (warnings: Object) => {};
+	handleError: (errors: Object) => {};
+	keyboardBind: HTMLElement;
+	additionalModulesBPMN: Array;
+}
+
 declare const BpmnViewer: React.ComponentType<BpmnViewerProps>;
 
-export { BpmnViewer, OVERLAYS_TYPES };
+declare const BpmnModeler: React.ComponentType<BpmnModelerProps>;
+
+declare const OVERLAYS_TYPES: OVERLAYS_TYPES_DEFINED;
+
+export { BpmnViewer, BpmnModeler, OVERLAYS_TYPES };
