@@ -18,7 +18,8 @@ export function BpmnModeler({
 	handleWarning,
 	handleError,
 	keyboardBind,
-	additionalModulesBPMN,
+	additionalModules,
+	moddleExtensions,
 }) {
 	useEffect(() => {
 		const bpmnModeler = new Modeler({
@@ -26,14 +27,17 @@ export function BpmnModeler({
 			keyboard: {
 				bindTo: keyboardBind || document,
 			},
-			additionalModules: additionalModulesBPMN || [
-				propertiesPanelModule,
-				propertiesProviderModule,
-			],
+			additionalModules: additionalModules
+				? [propertiesPanelModule, propertiesProviderModule].concat(
+						additionalModules
+				  )
+				: [propertiesPanelModule, propertiesProviderModule],
 			propertiesPanel: {
 				parent: '#properties-bpmn-react-panel-parent',
 			},
+			moddleExtensions,
 		});
+
 		if (diagramXML) {
 			bpmnModeler
 				.importXML(diagramXML)
@@ -62,7 +66,8 @@ export function BpmnModeler({
 		handleWarning,
 		handleError,
 		keyboardBind,
-		additionalModulesBPMN,
+		additionalModules,
+		moddleExtensions,
 	]);
 
 	return (
@@ -88,5 +93,6 @@ BpmnModeler.propTypes = {
 	handleWarning: PropTypes.func,
 	handleError: PropTypes.func,
 	keyboardBind: PropTypes.element,
-	additionalModulesBPMN: PropTypes.array,
+	additionalModules: PropTypes.array,
+	moddleExtensions: PropTypes.object,
 };

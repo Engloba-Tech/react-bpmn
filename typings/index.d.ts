@@ -38,7 +38,8 @@ export interface BpmnModelerProps {
 	handleWarning: (warnings: Object) => {};
 	handleError: (errors: Object) => {};
 	keyboardBind: HTMLElement;
-	additionalModulesBPMN: Array;
+	additionalModules: Array;
+	moddleExtensions: Object;
 }
 
 declare const BpmnViewer: React.ComponentType<BpmnViewerProps>;
