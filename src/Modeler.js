@@ -9,6 +9,8 @@ import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
 import 'bpmn-js-properties-panel/dist/assets/bpmn-js-properties-panel.css';
 import './index.css';
 
+let bpmnModeler;
+
 export function BpmnModeler({
 	className,
 	containerClassName,
@@ -22,43 +24,46 @@ export function BpmnModeler({
 	moddleExtensions,
 }) {
 	useEffect(() => {
-		const bpmnModeler = new Modeler({
-			container: '#modeler-bpmn-react-container',
-			keyboard: {
-				bindTo: keyboardBind || document,
-			},
-			additionalModules: additionalModules
-				? [propertiesPanelModule, propertiesProviderModule].concat(
-						additionalModules
-				  )
-				: [propertiesPanelModule, propertiesProviderModule],
-			propertiesPanel: {
-				parent: '#properties-bpmn-react-panel-parent',
-			},
-			moddleExtensions,
-		});
+		if (!bpmnModeler) {
+			bpmnModeler = new Modeler({
+				container: '#modeler-bpmn-react-container',
+				keyboard: {
+					bindTo: keyboardBind || document,
+				},
+				additionalModules: additionalModules
+					? [propertiesPanelModule, propertiesProviderModule].concat(
+							additionalModules
+					  )
+					: [propertiesPanelModule, propertiesProviderModule],
+				propertiesPanel: {
+					parent: '#properties-bpmn-react-panel-parent',
+				},
+				moddleExtensions,
+			});
 
-		if (diagramXML) {
-			bpmnModeler
-				.importXML(diagramXML)
-				.then(({ warnings }) => {
-					if (warnings.length) {
-						handleWarning(warnings);
-					}
+			if (diagramXML) {
+				bpmnModeler
+					.importXML(diagramXML)
+					.then(({ warnings }) => {
+						if (warnings.length) {
+							handleWarning(warnings);
+						}
 
-					const canvas = bpmnModeler.get('canvas');
+						const canvas = bpmnModeler.get('canvas');
 
-					canvas.zoom('fit-viewport');
-				})
-				.catch((err) => {
-					handleError(err);
-				});
+						canvas.zoom('fit-viewport');
+					})
+					.catch((err) => {
+						handleError(err);
+					});
+			}
+
+			modelerRef && typeof modelerRef === 'function' && modelerRef(bpmnModeler);
 		}
-
-		modelerRef && typeof modelerRef === 'function' && modelerRef(bpmnModeler);
 
 		return () => {
 			bpmnModeler.destroy();
+			bpmnModeler = undefined;
 		};
 	}, [
 		modelerRef,
