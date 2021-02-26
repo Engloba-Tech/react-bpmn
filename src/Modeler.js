@@ -62,14 +62,22 @@ export function BpmnModeler({
 							handleError(err);
 						});
 				}
+
+				modelerRef && typeof modelerRef === 'function' && modelerRef(modeler);
 			});
 		}
 
 		return () => {
-			bpmnModeler.destroy();
-			setBpmnModeler(null);
+			setBpmnModeler((prevModeler) => {
+				if (prevModeler) {
+					bpmnModeler.destroy();
+					return null;
+				}
+				return prevModeler;
+			});
 		};
 	}, [
+		modelerRef,
 		bpmnModeler,
 		diagramXML,
 		handleWarning,
@@ -78,12 +86,6 @@ export function BpmnModeler({
 		additionalModules,
 		moddleExtensions,
 	]);
-
-	useEffect(() => {
-		if (bpmnModeler) {
-			modelerRef && typeof modelerRef === 'function' && modelerRef(bpmnModeler);
-		}
-	}, [modelerRef, bpmnModeler]);
 
 	return (
 		<div className={className}>
