@@ -33,6 +33,7 @@ export interface BpmnModelerProps {
 	className: string;
 	containerClassName: string;
 	panelClassName: string;
+	withPannel: true;
 	modelerRef: (modelerInstance: Object) => {};
 	diagramXML: string;
 	handleWarning: (warnings: Object) => {};
