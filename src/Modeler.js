@@ -29,19 +29,19 @@ export function BpmnModeler({
 				keyboard: {
 					bindTo: keyboardBind || document,
 				},
-				// additionalModules: withPannel
-				// 	? additionalModules
-				// 		? [propertiesPanelModule, propertiesProviderModule].concat(
-				// 				additionalModules
-				// 		  )
-				// 		: [propertiesPanelModule, propertiesProviderModule]
-				// 	: undefined,
-				// propertiesPanel: withPannel
-				// 	? {
-				// 			parent: '#properties-bpmn-react-panel-parent',
-				// 	  }
-				// 	: undefined,
-				// moddleExtensions: withPannel ? moddleExtensions : undefined,
+				additionalModules: withPannel
+					? additionalModules
+						? [propertiesPanelModule, propertiesProviderModule].concat(
+								additionalModules
+						  )
+						: [propertiesPanelModule, propertiesProviderModule]
+					: undefined,
+				propertiesPanel: withPannel
+					? {
+							parent: '#properties-bpmn-react-panel-parent',
+					  }
+					: undefined,
+				moddleExtensions: withPannel ? moddleExtensions : undefined,
 			});
 
 			if (diagramXML) {
