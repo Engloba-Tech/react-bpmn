@@ -23,41 +23,43 @@ export function BpmnModeler({
 	withPannel = true,
 }) {
 	useEffect(() => {
-		modeler = new Modeler({
-			container: '#modeler-bpmn-react-container',
-			keyboard: {
-				bindTo: keyboardBind || document,
-			},
-			additionalModules: withPannel
-				? additionalModules
-					? [propertiesPanelModule, propertiesProviderModule].concat(
-							additionalModules
-					  )
-					: [propertiesPanelModule, propertiesProviderModule]
-				: undefined,
-			propertiesPanel: withPannel
-				? {
-						parent: '#properties-bpmn-react-panel-parent',
-				  }
-				: undefined,
-			moddleExtensions: withPannel ? moddleExtensions : undefined,
-		});
+		if (!modeler) {
+			modeler = new Modeler({
+				container: '#modeler-bpmn-react-container',
+				keyboard: {
+					bindTo: keyboardBind || document,
+				},
+				// additionalModules: withPannel
+				// 	? additionalModules
+				// 		? [propertiesPanelModule, propertiesProviderModule].concat(
+				// 				additionalModules
+				// 		  )
+				// 		: [propertiesPanelModule, propertiesProviderModule]
+				// 	: undefined,
+				// propertiesPanel: withPannel
+				// 	? {
+				// 			parent: '#properties-bpmn-react-panel-parent',
+				// 	  }
+				// 	: undefined,
+				// moddleExtensions: withPannel ? moddleExtensions : undefined,
+			});
 
-		if (diagramXML) {
-			modeler
-				.importXML(diagramXML)
-				.then(({ warnings }) => {
-					if (warnings.length) {
-						handleWarning(warnings);
-					}
+			if (diagramXML) {
+				modeler
+					.importXML(diagramXML)
+					.then(({ warnings }) => {
+						if (warnings.length) {
+							handleWarning(warnings);
+						}
 
-					const canvas = modeler.get('canvas');
+						const canvas = modeler.get('canvas');
 
-					canvas.zoom('fit-viewport');
-				})
-				.catch((err) => {
-					handleError(err);
-				});
+						canvas.zoom('fit-viewport');
+					})
+					.catch((err) => {
+						handleError(err);
+					});
+			}
 		}
 	}, [
 		withPannel,
