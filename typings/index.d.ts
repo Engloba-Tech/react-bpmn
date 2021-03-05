@@ -34,7 +34,6 @@ export interface BpmnModelerProps {
 	containerClassName: string;
 	panelClassName: string;
 	withPannel: true;
-	modelerRef: (modelerInstance: Object) => {};
 	diagramXML: string;
 	handleWarning: (warnings: Object) => {};
 	handleError: (errors: Object) => {};
@@ -43,10 +42,12 @@ export interface BpmnModelerProps {
 	moddleExtensions: Object;
 }
 
+declare const modeler: Object;
+
 declare const BpmnViewer: React.ComponentType<BpmnViewerProps>;
 
 declare const BpmnModeler: React.ComponentType<BpmnModelerProps>;
 
 declare const OVERLAYS_TYPES: OVERLAYS_TYPES_DEFINED;
 
-export { BpmnViewer, BpmnModeler, OVERLAYS_TYPES };
+export { BpmnViewer, BpmnModeler, modeler, OVERLAYS_TYPES };

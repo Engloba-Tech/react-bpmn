@@ -9,11 +9,11 @@ import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
 import 'bpmn-js-properties-panel/dist/assets/bpmn-js-properties-panel.css';
 import './index.css';
 
+export let modeler;
 export function BpmnModeler({
 	className,
 	containerClassName,
 	panelClassName,
-	modelerRef,
 	diagramXML,
 	handleWarning,
 	handleError,
@@ -23,7 +23,7 @@ export function BpmnModeler({
 	withPannel = true,
 }) {
 	useEffect(() => {
-		const modeler = new Modeler({
+		modeler = new Modeler({
 			container: '#modeler-bpmn-react-container',
 			keyboard: {
 				bindTo: keyboardBind || document,
@@ -59,10 +59,7 @@ export function BpmnModeler({
 					handleError(err);
 				});
 		}
-
-		modelerRef && typeof modelerRef === 'function' && modelerRef(modeler);
 	}, [
-		modelerRef,
 		withPannel,
 		diagramXML,
 		handleWarning,
@@ -91,7 +88,6 @@ BpmnModeler.propTypes = {
 	containerClassName: PropTypes.string,
 	panelClassName: PropTypes.string,
 	withPannel: PropTypes.bool,
-	modelerRef: PropTypes.func,
 	diagramXML: PropTypes.string,
 	handleWarning: PropTypes.func,
 	handleError: PropTypes.func,
