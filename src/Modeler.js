@@ -21,6 +21,7 @@ export function BpmnModeler({
 	additionalModules,
 	moddleExtensions,
 	withPannel = true,
+	linting,
 }) {
 	const [bpmnModeler, setBpmnModeler] = useState(null);
 
@@ -35,6 +36,9 @@ export function BpmnModeler({
 					container: '#modeler-bpmn-react-container',
 					keyboard: {
 						bindTo: keyboardBind || document,
+					},
+					linting: {
+						bpmnlint: linting,
 					},
 					additionalModules: withPannel
 						? additionalModules
@@ -85,6 +89,7 @@ export function BpmnModeler({
 		modelerRef,
 		bpmnModeler,
 		withPannel,
+		linting,
 		diagramXML,
 		handleWarning,
 		handleError,
@@ -119,4 +124,5 @@ BpmnModeler.propTypes = {
 	keyboardBind: PropTypes.element,
 	additionalModules: PropTypes.array,
 	moddleExtensions: PropTypes.object,
+	linting: PropTypes.object,
 };

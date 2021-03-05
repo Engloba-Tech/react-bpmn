@@ -1,6 +1,6 @@
 {
 	"name": "@engloba-tech/react-bpmn",
-	"version": "0.0.11",
+	"version": "0.0.12",
 	"description": "extension of BPMN js for React",
 	"scripts": {
 		"clean": "rimraf ./dist",
