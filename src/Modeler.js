@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Modeler from 'bpmn-js/lib/Modeler';
 import propertiesPanelModule from 'bpmn-js-properties-panel';
@@ -21,75 +21,49 @@ export function BpmnModeler({
 	additionalModules,
 	moddleExtensions,
 	withPannel = true,
-	linting,
 }) {
-	const [bpmnModeler, setBpmnModeler] = useState(null);
-
 	useEffect(() => {
-		if (!bpmnModeler) {
-			setBpmnModeler((prevBpmnModeler) => {
-				if (prevBpmnModeler) {
-					return prevBpmnModeler;
-				}
+		const modeler = new Modeler({
+			container: '#modeler-bpmn-react-container',
+			keyboard: {
+				bindTo: keyboardBind || document,
+			},
+			additionalModules: withPannel
+				? additionalModules
+					? [propertiesPanelModule, propertiesProviderModule].concat(
+							additionalModules
+					  )
+					: [propertiesPanelModule, propertiesProviderModule]
+				: undefined,
+			propertiesPanel: withPannel
+				? {
+						parent: '#properties-bpmn-react-panel-parent',
+				  }
+				: undefined,
+			moddleExtensions: withPannel ? moddleExtensions : undefined,
+		});
 
-				const modeler = new Modeler({
-					container: '#modeler-bpmn-react-container',
-					keyboard: {
-						bindTo: keyboardBind || document,
-					},
-					linting: {
-						bpmnlint: linting,
-					},
-					additionalModules: withPannel
-						? additionalModules
-							? [propertiesPanelModule, propertiesProviderModule].concat(
-									additionalModules
-							  )
-							: [propertiesPanelModule, propertiesProviderModule]
-						: undefined,
-					propertiesPanel: withPannel
-						? {
-								parent: '#properties-bpmn-react-panel-parent',
-						  }
-						: undefined,
-					moddleExtensions: withPannel ? moddleExtensions : undefined,
+		if (diagramXML) {
+			modeler
+				.importXML(diagramXML)
+				.then(({ warnings }) => {
+					if (warnings.length) {
+						handleWarning(warnings);
+					}
+
+					const canvas = modeler.get('canvas');
+
+					canvas.zoom('fit-viewport');
+				})
+				.catch((err) => {
+					handleError(err);
 				});
-
-				if (diagramXML) {
-					modeler
-						.importXML(diagramXML)
-						.then(({ warnings }) => {
-							if (warnings.length) {
-								handleWarning(warnings);
-							}
-
-							const canvas = modeler.get('canvas');
-
-							canvas.zoom('fit-viewport');
-						})
-						.catch((err) => {
-							handleError(err);
-						});
-				}
-
-				modelerRef && typeof modelerRef === 'function' && modelerRef(modeler);
-			});
 		}
 
-		return () => {
-			setBpmnModeler((prevModeler) => {
-				if (prevModeler) {
-					bpmnModeler.destroy();
-					return null;
-				}
-				return prevModeler;
-			});
-		};
+		modelerRef && typeof modelerRef === 'function' && modelerRef(modeler);
 	}, [
 		modelerRef,
-		bpmnModeler,
 		withPannel,
-		linting,
 		diagramXML,
 		handleWarning,
 		handleError,
@@ -124,5 +98,4 @@ BpmnModeler.propTypes = {
 	keyboardBind: PropTypes.element,
 	additionalModules: PropTypes.array,
 	moddleExtensions: PropTypes.object,
-	linting: PropTypes.object,
 };
