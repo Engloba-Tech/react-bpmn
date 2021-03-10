@@ -61,6 +61,10 @@ export function BpmnModeler({
 					});
 			}
 		}
+		return () => {
+			modeler.destroy();
+			modeler = undefined;
+		};
 	}, [
 		withPannel,
 		diagramXML,
