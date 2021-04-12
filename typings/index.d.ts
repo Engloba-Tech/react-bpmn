@@ -20,6 +20,7 @@ type ElementOverlays = {
 
 export interface BpmnViewerProps {
 	elementOverlays: Array<ElementOverlays>;
+	elementRegistry: (elements: Array<Object>) => {};
 	url: string;
 	diagramXML: XMLDocument;
 	onError: Function;

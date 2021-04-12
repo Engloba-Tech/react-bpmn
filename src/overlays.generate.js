@@ -37,17 +37,7 @@ function loadMultipleTooltip(hoverTooltip) {
 	return multipleTooltip;
 }
 
-function overlayHTML(shape, id, type, hoverTooltip, onClick) {
-	if (onClick) {
-		// workaround, dont delete
-		setTimeout(() => {
-			const $button = document.querySelector(`#${id}`);
-			$button.addEventListener('click', function () {
-				onClick();
-			});
-		});
-	}
-
+function overlayHTML(shape, id, type, hoverTooltip) {
 	return `<div style="width:${shape.width}px;height:${shape.height}px">
     <div  style="width:${shape.width}px;height:${shape.height}px"
           class="highlight-overlay-${type} ${getShapeType(shape)}"></div>
@@ -76,13 +66,7 @@ export function generateElementOverlays(
 	const element = elements[i];
 	const shape = elementRegistry.get(element.name);
 	const id = element.name + i;
-	const html = overlayHTML(
-		shape,
-		id,
-		element.type,
-		element.hoverTooltip,
-		element.onClick
-	);
+	const html = overlayHTML(shape, id, element.type, element.hoverTooltip);
 
 	overlays.add(element.name, {
 		position: {
