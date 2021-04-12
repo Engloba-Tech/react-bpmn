@@ -38,8 +38,12 @@ function loadMultipleTooltip(hoverTooltip) {
 }
 
 function overlayHTML(shape, id, type, hoverTooltip) {
-	return `<div style="width:${shape.width}px;height:${shape.height}px">
-    <div  style="width:${shape.width}px;height:${shape.height}px"
+	return `<div style="width:${shape.width}px;height:${
+		shape.height
+	}px; pointer-events: none;">
+    <div  style="width:${shape.width}px;height:${
+		shape.height
+	}px; pointer-events: none;"
           class="highlight-overlay-${type} ${getShapeType(shape)}"></div>
     <button id="${id}"class="BPMNelement btn">
       ${
