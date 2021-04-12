@@ -36,11 +36,10 @@ export function configBpmnViewer(
 			.then((response) => response.text())
 			.then((XMLText) => bpmnViewer.importXML(XMLText))
 			.catch((err) => onError && onError(err));
-	} else if (diagramXML) {
+	}
+
+	if (diagramXML) {
 		bpmnViewer.importXML(diagramXML);
-	} else {
-		onError('XML needed to load BPMN');
-		throw new Error();
 	}
 
 	return bpmnViewer;
