@@ -3,7 +3,7 @@ import { generateElementOverlays } from './overlays.generate';
 export function configBpmnViewer(
 	bpmnViewer,
 	elementOverlays,
-	elementRegistry,
+	elementActions,
 	url,
 	diagramXML,
 	onError,
@@ -24,7 +24,8 @@ export function configBpmnViewer(
 		canvas.zoom('fit-viewport', 'auto');
 
 		generateElementOverlays(overlays, elements, elementOverlays);
-		elementRegistry(elements);
+
+		elementActions({ elements, overlays });
 
 		return onShown && onShown(warnings);
 	});

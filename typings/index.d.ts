@@ -1,4 +1,3 @@
-import Modeler from 'bpmn-js/lib/Modeler';
 import * as React from 'react';
 
 type HoverText = {
@@ -18,9 +17,26 @@ type ElementOverlays = {
 	onClick: Function;
 };
 
+type ElementRegistry = {
+	type: String;
+	id: String;
+};
+
+type ElementBPMN = {
+	activity: ElementRegistry;
+	gfx: HTMLDivElement;
+};
+
+type OverlayBPMN = {
+	get: ({ element: Object }) => {};
+};
+
 export interface BpmnViewerProps {
 	elementOverlays: Array<ElementOverlays>;
-	elementRegistry: (elements: Array<Object>) => {};
+	elementActions: (actionConfig: {
+		elements: Array<ElementBPMN>;
+		overlays: OverlayBPMN;
+	}) => {};
 	url: string;
 	diagramXML: XMLDocument;
 	onError: Function;

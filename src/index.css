@@ -1,5 +1,5 @@
 .highlight-overlay-succes {
-	pointer-events: none;
+	/* pointer-events: none; */
 	background-color: green; /* color elements as green */
 	/* pointer-events: none; no pointer events, allows clicking through onto the element */
 	width: 100%;
@@ -9,7 +9,7 @@
 }
 
 .highlight-overlay-current {
-	pointer-events: none;
+	/* pointer-events: none; */
 	background-color: lightcoral; /* color elements as green */
 	/* pointer-events: none; no pointer events, allows clicking through onto the element */
 	width: 100%;
