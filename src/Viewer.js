@@ -16,7 +16,7 @@ export function BpmnViewer({
 	width,
 }) {
 	const [bpmnViewer, setBpmnViewer] = useState(null);
-	const [elementsRegistry, setElementsRegistry] = useState([]);
+	const [elementRegistry, setElementRegistry] = useState(null);
 	const [overlays, setOverlays] = useState(null);
 
 	useEffect(() => {
@@ -56,7 +56,7 @@ export function BpmnViewer({
 
 				viewSupplier({ elements, overlays });
 				setOverlays(overlays);
-				setElementsRegistry(elements);
+				setElementRegistry(elements);
 			});
 
 			if (url) {
@@ -75,10 +75,10 @@ export function BpmnViewer({
 	}, [bpmnViewer, url, diagramXML, viewSupplier, onError, onLoading, onShown]);
 
 	useEffect(() => {
-		if (bpmnViewer && elementsRegistry) {
-			generateElementOverlays(overlays, elementsRegistry, elementOverlays);
+		if (bpmnViewer && elementRegistry) {
+			generateElementOverlays(overlays, elementRegistry, elementOverlays);
 		}
-	}, [bpmnViewer, elementOverlays, elementsRegistry, overlays]);
+	}, [bpmnViewer, elementOverlays, elementRegistry, overlays]);
 
 	return (
 		<div
