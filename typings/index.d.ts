@@ -33,7 +33,7 @@ type OverlayBPMN = {
 
 export interface BpmnViewerProps {
 	elementOverlays: Array<ElementOverlays>;
-	elementActions: (actionConfig: {
+	viewSupplier: (actionConfig: {
 		elements: Array<ElementBPMN>;
 		overlays: OverlayBPMN;
 	}) => {};
