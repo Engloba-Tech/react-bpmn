@@ -18,6 +18,8 @@ export function BpmnViewer({
 	const [bpmnViewer, setBpmnViewer] = useState(null);
 	const [elementRegistry, setElementRegistry] = useState(null);
 	const [overlays, setOverlays] = useState(null);
+	const [XMLData, setXMLData] = useState(null);
+	const [urlData, setUrlData] = useState(null);
 
 	useEffect(() => {
 		const _bpmnViewer = new BpmnJS({
@@ -29,56 +31,62 @@ export function BpmnViewer({
 			},
 		});
 
+		_bpmnViewer.on('import.done', (event) => {
+			const { error, warnings } = event;
+
+			if (error) {
+				return onError && onError(error);
+			}
+
+			if (warnings) {
+				onShown && onShown(warnings);
+			}
+
+			const canvas = _bpmnViewer.get('canvas');
+			const overlays = _bpmnViewer.get('overlays');
+			const elements = _bpmnViewer.get('elementRegistry');
+			canvas.zoom('fit-viewport', 'auto');
+
+			viewSupplier({ elements, overlays });
+			setOverlays(overlays);
+			setElementRegistry(elements);
+		});
+
 		setBpmnViewer(_bpmnViewer);
 
 		return () => {
 			_bpmnViewer.destroy();
 		};
-	}, [height, width]);
+	}, [height, width, onShown, onError, viewSupplier]);
 
 	useEffect(() => {
 		if (bpmnViewer) {
-			bpmnViewer.on('import.done', (event) => {
-				const { error, warnings } = event;
-
-				if (error) {
-					return onError && onError(error);
-				}
-
-				if (warnings) {
-					onShown && onShown(warnings);
-				}
-
-				const canvas = bpmnViewer.get('canvas');
-				const overlays = bpmnViewer.get('overlays');
-				const elements = bpmnViewer.get('elementRegistry');
-				canvas.zoom('fit-viewport', 'auto');
-
-				viewSupplier({ elements, overlays });
-				setOverlays(overlays);
-				setElementRegistry(elements);
-			});
-
 			if (url) {
-				onLoading && onLoading();
+				if (!urlData || urlData !== url) {
+					setUrlData(url);
+					onLoading && onLoading();
 
-				fetch(url)
-					.then((response) => response.text())
-					.then((XMLText) => bpmnViewer.importXML(XMLText))
-					.catch((err) => onError && onError(err));
+					fetch(url)
+						.then((response) => response.text())
+						.then((XMLText) => bpmnViewer.importXML(XMLText))
+						.catch((err) => onError && onError(err));
+				}
 			}
 
 			if (diagramXML) {
-				bpmnViewer.importXML(diagramXML);
+				if (!XMLData || XMLData !== diagramXML) {
+					setXMLData(diagramXML);
+					bpmnViewer.importXML(diagramXML);
+				}
 			}
 		}
-	}, [bpmnViewer, url, diagramXML, viewSupplier, onError, onLoading, onShown]);
+	}, [bpmnViewer, XMLData, urlData, url, diagramXML, onError, onLoading]);
 
 	useEffect(() => {
-		if (bpmnViewer && elementRegistry) {
+		if (elementRegistry) {
 			generateElementOverlays(overlays, elementRegistry, elementOverlays);
 		}
-	}, [bpmnViewer, elementOverlays, elementRegistry, overlays]);
+	}, [elementOverlays, elementRegistry, overlays]);
 
 	return (
 		<div
