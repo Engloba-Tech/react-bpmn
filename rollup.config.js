@@ -2,10 +2,10 @@ import pkg from './package.json';
 import dts from 'rollup-plugin-dts';
 import css from 'rollup-plugin-import-css';
 import postcss from 'rollup-plugin-postcss';
+import { terser } from 'rollup-plugin-terser';
 const nodeResolve = require('rollup-plugin-node-resolve');
 const commonjs = require('rollup-plugin-commonjs');
 const babel = require('rollup-plugin-babel');
-const { uglify } = require('rollup-plugin-uglify');
 
 const umdGlobals = pkg.peerDependencies || {};
 
@@ -60,7 +60,7 @@ module.exports = [
 			nodeResolve(),
 			commonjs(commonjsOptions),
 			babel({ exclude: '**/node_modules/**' }),
-			uglify(),
+			terser(),
 			css(),
 		],
 	},
