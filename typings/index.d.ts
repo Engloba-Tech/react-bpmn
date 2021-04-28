@@ -8,6 +8,7 @@ type HoverText = {
 declare type OVERLAYS_TYPES_DEFINED = {
 	SUCCES: 'succes';
 	CURRENT: 'current';
+	FUTURE: 'future';
 };
 
 type ElementOverlays = {

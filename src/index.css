@@ -18,6 +18,15 @@
 	position: absolute;
 }
 
+.highlight-overlay-future {
+	/* pointer-events: none; */
+	background-color: transparent; /* color elements as green */
+	/* pointer-events: none; no pointer events, allows clicking through onto the element */
+	width: 100%;
+	height: 100%;
+	position: absolute;
+}
+
 .rombo {
 	-webkit-transform: rotate(45deg);
 	-moz-transform: rotate(45deg);
