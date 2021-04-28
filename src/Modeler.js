@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Modeler from 'bpmn-js/lib/Modeler';
-import propertiesPanelModule from 'bpmn-js-properties-panel';
+import PropertiesPanel from 'bpmn-js-properties-panel';
 import propertiesProviderModule from 'bpmn-js-properties-panel/lib/provider/camunda';
-
 import 'bpmn-js/dist/assets/diagram-js.css';
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
 import 'bpmn-js-properties-panel/dist/assets/bpmn-js-properties-panel.css';
@@ -21,20 +20,21 @@ export function BpmnModeler({
 	additionalModules,
 	moddleExtensions,
 	withPannel = true,
+	children,
 }) {
 	useEffect(() => {
 		if (!modeler) {
 			modeler = new Modeler({
 				container: '#modeler-bpmn-react-container',
 				keyboard: {
-					bindTo: keyboardBind || document,
+					bindTo: document,
 				},
 				additionalModules: withPannel
 					? additionalModules
-						? [propertiesPanelModule, propertiesProviderModule].concat(
+						? [PropertiesPanel, propertiesProviderModule].concat(
 								additionalModules
 						  )
-						: [propertiesPanelModule, propertiesProviderModule]
+						: [PropertiesPanel, propertiesProviderModule]
 					: undefined,
 				propertiesPanel: withPannel
 					? {
@@ -77,6 +77,7 @@ export function BpmnModeler({
 
 	return (
 		<div className={className}>
+			{children}
 			<div
 				className={containerClassName}
 				id='modeler-bpmn-react-container'
