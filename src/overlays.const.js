@@ -8,4 +8,7 @@ export const OVERLAYS_TYPES = {
 	SUCCES: 'succes',
 	CURRENT: 'current',
 	FUTURE: 'future',
+	CURRENT_DANGER: 'current-danger',
+	CURRENT_WARNING: 'current-warning',
+	CURRENT_NORMAL: 'current-normal',
 };

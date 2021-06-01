@@ -1,30 +1,33 @@
-.highlight-overlay-succes {
-	/* pointer-events: none; */
-	background-color: green; /* color elements as green */
-	/* pointer-events: none; no pointer events, allows clicking through onto the element */
+.highlight-overlay {
 	width: 100%;
 	opacity: 0.3;
 	height: 100%;
 	position: absolute;
+}
+
+.highlight-overlay-succes {
+	background-color: green;
 }
 
 .highlight-overlay-current {
-	/* pointer-events: none; */
-	background-color: lightcoral; /* color elements as green */
-	/* pointer-events: none; no pointer events, allows clicking through onto the element */
-	width: 100%;
-	opacity: 0.3;
-	height: 100%;
-	position: absolute;
+	background-color: lightcoral;
+}
+
+.highlight-overlay-current-danger {
+	background-color: lightcoral;
+}
+
+.highlight-overlay-current-warning {
+	background-color: orange;
+}
+
+.highlight-overlay-current-normal {
+	background-color: rgb(0, 119, 255);
 }
 
 .highlight-overlay-future {
-	/* pointer-events: none; */
-	background-color: transparent; /* color elements as green */
-	/* pointer-events: none; no pointer events, allows clicking through onto the element */
-	width: 100%;
-	height: 100%;
-	position: absolute;
+	background-color: transparent;
+	opacity: 1;
 }
 
 .rombo {

@@ -9,6 +9,9 @@ declare type OVERLAYS_TYPES_DEFINED = {
 	SUCCES: 'succes';
 	CURRENT: 'current';
 	FUTURE: 'future';
+	CURRENT_DANGER: 'current-danger';
+	CURRENT_WARNING: 'current-warning';
+	CURRENT_NORMAL: 'current-normal';
 };
 
 type ElementOverlays = {
