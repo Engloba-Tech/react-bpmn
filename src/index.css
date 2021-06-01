@@ -13,11 +13,11 @@
 	background-color: lightcoral;
 }
 
-.highlight-overlay-current-danger {
+.highlight-overlay-current-warning {
 	background-color: lightcoral;
 }
 
-.highlight-overlay-current-warning {
+.highlight-overlay-current-danger {
 	background-color: orange;
 }
 
