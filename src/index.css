@@ -46,6 +46,23 @@
 	border-radius: 30px;
 }
 
+.buble-execution {
+	width: 2rem;
+	height: 2rem;
+	position: absolute;
+	border-radius: 100%;
+	background: #e7ddff;
+	border: 1px solid black;
+	z-index: 9000;
+	bottom: -15px;
+	left: -15px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 600;
+}
+
 .BPMNelement {
 	width: 100%;
 	position: absolute;

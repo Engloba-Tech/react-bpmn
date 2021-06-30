@@ -37,8 +37,13 @@ function loadMultipleTooltip(hoverTooltip) {
 	return multipleTooltip;
 }
 
-function overlayHTML(shape, id, type, hoverTooltip) {
+function executionHTML(executions) {
+	return `<div class="buble-execution">${executions.count}</div>`;
+}
+
+function overlayHTML(shape, id, type, hoverTooltip, executions) {
 	return `<div style="width:${shape.width}px;height:${shape.height}px;">
+	${executions && executionHTML(executions)}
     <div  style="width:${shape.width}px;height:${shape.height}px;"
           class="highlight-overlay highlight-overlay-${type} ${getShapeType(
 		shape
@@ -68,7 +73,13 @@ export function generateElementOverlays(
 	const element = elements[i];
 	const shape = elementRegistry.get(element.name);
 	const id = element.name + i;
-	const html = overlayHTML(shape, id, element.type, element.hoverTooltip);
+	const html = overlayHTML(
+		shape,
+		id,
+		element.type,
+		element.hoverTooltip,
+		element.executions
+	);
 
 	overlays.add(element.name, {
 		position: {
